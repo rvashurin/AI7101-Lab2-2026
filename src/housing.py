@@ -17,15 +17,29 @@ BASE_PIPELINE = [
     ("scaler", StandardScaler()),
 ]
 
+LINEAR_GRID = {
+    "model__alpha": [0.001, 0.01, 0.1, 0.3, 0.5, 0.7, 1.0, 10.0],
+    "model__l1_ratio": [0.0, 0.5, 1.0],
+}
+
 MODELS = {
     "simple_elastic": {
-        "pipeline": Pipeline(BASE_PIPELINE + [("model", ElasticNet(max_iter=1000))]),
-        "param_grid": {
-            "model__alpha": [0.001, 0.01, 0.1, 0.3, 0.5, 0.7, 1.0, 10.0],
-            "model__l1_ratio": [0.0, 0.5, 1.0],
-        },
+        "pipeline": Pipeline(
+            BASE_PIPELINE + [("model", ElasticNet(max_iter=1000))]
+        ),
+        "param_grid": LINEAR_GRID,
     },
-    "poly_elastic": {
+    "poly_elastic_3": {
+        "pipeline": Pipeline(
+            BASE_PIPELINE
+            + [
+                ("poly", PolynomialFeatures(degree=3, include_bias=False)),
+                ("model", ElasticNet(max_iter=1000)),
+            ]
+        ),
+        "param_grid": LINEAR_GRID,
+    },
+    "poly_elastic_2": {
         "pipeline": Pipeline(
             BASE_PIPELINE
             + [
@@ -33,20 +47,18 @@ MODELS = {
                 ("model", ElasticNet(max_iter=1000)),
             ]
         ),
-        "param_grid": {
-            "model__alpha": [0.001, 0.01, 0.1, 0.3, 0.5, 0.7, 1.0, 10.0],
-            "model__l1_ratio": [0.0, 0.5, 1.0],
-        },
+        "param_grid": LINEAR_GRID,
     },
     "knn": {
-        "pipeline": Pipeline(BASE_PIPELINE + [("model", KNeighborsRegressor())]),
+        "pipeline": Pipeline(
+            BASE_PIPELINE + [("model", KNeighborsRegressor())]
+        ),
         "param_grid": {
             "model__n_neighbors": [2, 5, 10, 20, 50],
             "model__p": [1, 2],
         },
     },
 }
-
 
 def set_seed(seed: int = 1):
     np.random.seed(seed)
