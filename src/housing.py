@@ -18,7 +18,7 @@ BASE_PIPELINE = [
 ]
 
 LINEAR_GRID = {
-    "model__alpha": [0.001, 0.01, 0.1, 1.0, 10.0],
+    "model__alpha": [0.001, 0.01, 0.1, 0.3, 0.5, 0.7, 1.0, 10.0],
     "model__l1_ratio": [0.0, 0.5, 1.0],
 }
 
@@ -45,7 +45,10 @@ MODELS = {
                 ("model", ElasticNet(max_iter=1000)),
             ]
         ),
-        "param_grid": LINEAR_GRID,
+        "param_grid": {
+            "model__alpha": [0.001, 0.01, 0.1, 1.0, 10.0],
+            "model__l1_ratio": [0.0, 0.5, 1.0],
+        },
     },
     "knn": {
         "pipeline": Pipeline(BASE_PIPELINE + [("model", KNeighborsRegressor())]),
