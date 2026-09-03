@@ -47,16 +47,6 @@ MODELS = {
         ),
         "param_grid": LINEAR_GRID,
     },
-    "poly_elastic": {
-        "pipeline": Pipeline(
-            BASE_PIPELINE
-            + [
-                ("poly", PolynomialFeatures(degree=2, include_bias=False)),
-                ("model", ElasticNet(max_iter=1000)),
-            ]
-        ),
-        "param_grid": LINEAR_GRID
-    },
     "knn": {
         "pipeline": Pipeline(BASE_PIPELINE + [("model", KNeighborsRegressor())]),
         "param_grid": {
