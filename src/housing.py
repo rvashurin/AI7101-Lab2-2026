@@ -25,7 +25,14 @@ LINEAR_GRID = {
 MODELS = {
     "simple_elastic": {
         "pipeline": Pipeline(BASE_PIPELINE + [("model", ElasticNet(max_iter=1000))]),
+<<<<<<< HEAD
         "param_grid": LINEAR_GRID,
+=======
+        "param_grid": {
+            "model__alpha": [0.001, 0.01, 0.1, 0.3, 0.5, 0.7, 1.0, 10.0],
+            "model__l1_ratio": [0.0, 0.5, 1.0],
+        },
+>>>>>>> main
     },
     "poly_elastic_3": {
         "pipeline": Pipeline(
@@ -45,7 +52,14 @@ MODELS = {
                 ("model", ElasticNet(max_iter=1000)),
             ]
         ),
+<<<<<<< HEAD
         "param_grid": LINEAR_GRID,
+=======
+        "param_grid": {
+            "model__alpha": [0.001, 0.01, 0.1, 0.3, 0.5, 0.7, 1.0, 10.0],
+            "model__l1_ratio": [0.0, 0.5, 1.0],
+        },
+>>>>>>> main
     },
     "knn": {
         "pipeline": Pipeline(BASE_PIPELINE + [("model", KNeighborsRegressor())]),
