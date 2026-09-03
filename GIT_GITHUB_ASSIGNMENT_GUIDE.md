@@ -37,7 +37,7 @@ The final submission is the URL of the pull request from the fork to the origina
 - [x] Resolve the conflict in `src/housing.py`
 - [x] Validate the resolved files
 - [x] Create the merge commit
-- [ ] Push `add_third_poly` to the fork
+- [x] Push `add_third_poly` to the fork
 - [ ] Create the pull request to `rvashurin:main`
 - [ ] Submit the pull-request URL
 
@@ -695,8 +695,11 @@ Use this section to record outputs, decisions, or problems while completing the 
   correct; and all three relevant models use it.
 - Merge commit `0b76ebb` was created by `HAMDAN ALKHOORI` and has both
   `add_third_poly` and `upstream/main` as parents.
-- The local branch is three commits ahead of `origin/add_third_poly`.
-- Next checkpoint: push local `add_third_poly` to `origin`.
+- The completed branch was pushed to `origin/add_third_poly`.
+- The user's post-push `git status` reported that local `add_third_poly` is up
+  to date with `origin/add_third_poly` and the working tree is clean.
+- Next checkpoint: create the pull request from the fork's `add_third_poly` to
+  the professor's `main`.
 
 ### Pull-request URL
 
@@ -753,3 +756,6 @@ Not created yet
   whitespace errors or conflict markers. Full model training was not run
   because `scikit-learn` is not installed in the checking environment and the
   dataset may require downloading; no automated test suite is provided.
+- **2026-09-04 — Push verified:** The user pushed `add_third_poly` to `origin`.
+  A subsequent `git status` reported that the local branch is up to date with
+  `origin/add_third_poly` and that the working tree is clean.
