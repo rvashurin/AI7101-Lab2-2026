@@ -1,31 +1,42 @@
 import random
-from sklearn.model_selection import train_test_split
-from sklearn.datasets import fetch_california_housing
-from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler, PolynomialFeatures
-from sklearn.linear_model import ElasticNet
-from sklearn.model_selection import GridSearchCV, KFold
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-import pandas as pd
-import numpy as np
 
+import numpy as np
+import pandas as pd
+from sklearn.datasets import fetch_california_housing
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import ElasticNet
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.model_selection import GridSearchCV, KFold, train_test_split
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import PolynomialFeatures, StandardScaler
 
 BASE_PIPELINE = [
     ("imputer", SimpleImputer(strategy="median")),
     ("scaler", StandardScaler()),
 ]
 
+LINEAR_GRID = {
+    "model__alpha": [0.001, 0.01, 0.1, 0.3, 0.5, 0.7, 1.0, 10.0],
+    "model__l1_ratio": [0.0, 0.5, 1.0],
+}
+
 MODELS = {
     "simple_elastic": {
         "pipeline": Pipeline(BASE_PIPELINE + [("model", ElasticNet(max_iter=1000))]),
-        "param_grid": {
-            "model__alpha": [0.001, 0.01, 0.1, 0.3, 0.5, 0.7, 1.0, 10.0],
-            "model__l1_ratio": [0.0, 0.5, 1.0],
-        },
+        "param_grid": LINEAR_GRID,
     },
-    "poly_elastic": {
+    "poly_elastic_3": {
+        "pipeline": Pipeline(
+            BASE_PIPELINE
+            + [
+                ("poly", PolynomialFeatures(degree=3, include_bias=False)),
+                ("model", ElasticNet(max_iter=1000)),
+            ]
+        ),
+        "param_grid": LINEAR_GRID,
+    },
+    "poly_elastic_2": {
         "pipeline": Pipeline(
             BASE_PIPELINE
             + [
@@ -33,10 +44,7 @@ MODELS = {
                 ("model", ElasticNet(max_iter=1000)),
             ]
         ),
-        "param_grid": {
-            "model__alpha": [0.001, 0.01, 0.1, 0.3, 0.5, 0.7, 1.0, 10.0],
-            "model__l1_ratio": [0.0, 0.5, 1.0],
-        },
+        "param_grid": LINEAR_GRID,
     },
     "knn": {
         "pipeline": Pipeline(BASE_PIPELINE + [("model", KNeighborsRegressor())]),
