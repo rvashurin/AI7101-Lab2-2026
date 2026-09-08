@@ -64,7 +64,8 @@ You can also run experiments from Python using the utilities in `src/housing.py`
 
 Available models (keys in `MODELS`):
 - `simple_elastic`: ElasticNet with standard scaling
-- `poly_elastic`: PolynomialFeatures (degree=2) + ElasticNet
+- `poly_elastic_2`: PolynomialFeatures (degree=2) + ElasticNet
+- `poly_elastic_3`: PolynomialFeatures (degree=3) + ElasticNet
 - `knn`: KNeighborsRegressor with standard scaling
 
 Each model includes a `param_grid` for `GridSearchCV`.
@@ -82,7 +83,7 @@ X_train, X_test, y_train, y_test = load_dataset(test_size=0.2, random_state=1)
 
 # 3) Train with cross-validated grid search
 search = train(
-    model="simple_elastic",    # or "poly_elastic", "knn"
+    model="simple_elastic",    # or "poly_elastic_2", "poly_elastic_3", "knn"
     X_train=X_train,
     y_train=y_train,
     cv_splits=5,
