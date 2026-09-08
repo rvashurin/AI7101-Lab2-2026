@@ -11,14 +11,13 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import pandas as pd
 import numpy as np
 
-
 BASE_PIPELINE = [
     ("imputer", SimpleImputer(strategy="median")),
     ("scaler", StandardScaler()),
 ]
 
 LINEAR_GRID = {
-    "model__alpha": [0.001, 0.01, 0.1, 1.0, 10.0],
+    "model__alpha": [0.001, 0.01, 0.1, 0.3, 0.5, 0.7, 1.0, 10.0],
     "model__l1_ratio": [0.0, 0.5, 1.0],
 }
 
